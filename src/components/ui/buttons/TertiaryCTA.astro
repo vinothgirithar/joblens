@@ -42,12 +42,12 @@ const searchPlaceholders = {
       id="search-bar"
       type="text"
       class="w-full px-4 pr-10 py-2 text-sm font-medium text-neutral-600 shadow-sm rounded-lg border border-neutral-200 focus:outline-none focus:ring-2 ring-zinc-500 transition duration-300"
-      placeholder={searchPlaceholders[selectedType] || "Search by company..."}
+      placeholder="Search by company..." // Default placeholder
     />
 
     <!-- Search Icon (now functional as a search button) -->
     <div class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer" id="search-icon">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-10 text-orange-500" viewBox="0 0 15 15" fill="currentColor">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-orange-500" viewBox="0 0 15 15" fill="currentColor">
         <path fill-rule="evenodd" d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" clip-rule="evenodd" />
       </svg>
     </div>
@@ -69,7 +69,7 @@ const searchPlaceholders = {
 </div>
 
 <!-- Client-side script for handling the button clicks and changing placeholders -->
-<script client:load={true}>
+<script client:load>
   // Get the buttons and the search bar
   const buttons = document.querySelectorAll('.button');
   const searchBar = document.getElementById('search-bar');
@@ -88,7 +88,12 @@ const searchPlaceholders = {
 
       // Update selected type and search bar placeholder
       selectedType = this.getAttribute('data-type');
-      searchBar.placeholder = searchPlaceholders[selectedType] || "Search by company...";
+      const placeholders = {
+        employer: 'Search by company...',
+        salary: 'Search by salary range...',
+        job: 'Search by job title...'
+      };
+      searchBar.placeholder = placeholders[selectedType];
     });
   });
 
