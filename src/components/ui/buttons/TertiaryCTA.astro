@@ -14,7 +14,6 @@ const searchPlaceholders = {
   <div id="button-container" class="flex justify-between mb-4 space-x-4">
     <button class="button flex-1 selected"
       id="employer-btn"
-      class="button selected"
       data-type="employer"
     >
       Find Employer
@@ -87,17 +86,12 @@ const searchPlaceholders = {
 
       // Update selected type and search bar placeholder
       selectedType = this.getAttribute('data-type');
-      const placeholders = {
-        employer: 'Search by company...',
-        salary: 'Search by salary range...',
-        job: 'Search by job title...'
-      };
       searchBar.placeholder = placeholders[selectedType];
     });
   });
 
   // Function to handle the search button click
-  searchButton.addEventListener('click', function () {
+  document.getElementById('search-icon').addEventListener('click', function () {
     const query = searchBar.value.trim();
 
     if (query) {
