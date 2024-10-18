@@ -18,11 +18,7 @@ const searchPlaceholders = {
     >
       Find Employer
     </button>
-    <button class="button flex-1"
-      id="salary-btn"
-      class="button"
-      data-type="salary"
-    >
+    <button class="button flex-1" id="salary-btn" data-type="salary">
       Salary
     </button>
     <button class="button flex-1"
@@ -55,23 +51,27 @@ const searchPlaceholders = {
   <!-- JavaScript to trigger search on icon click -->
   <script>
     document.getElementById('search-icon').addEventListener('click', function() {
-      const query = document.getElementById('search-bar').value.trim();
-
-      if (query) {
-        // Replace the URLs below with your actual search URLs
-        window.location.href = `/search?query=${encodeURIComponent(query)}`;
-      } else {
-      }
+      const searchInput = document.getElementById('search-bar') as HTMLInputElement;
+      if (searchInput) {
+        const query = (searchInput as HTMLInputElement).value.trim();
+      }  
     });
   </script>
 
 </div>
 
 <!-- Client-side script for handling the button clicks and changing placeholders -->
-<script client:load>
+<script type="module" client:load>
   // Get the buttons and the search bar
   const buttons = document.querySelectorAll('.button');
   const searchBar = document.getElementById('search-bar');
+
+  // Define placeholders
+  const placeholders = {
+    employer: 'Search by company...',
+    salary: 'Search by salary range...',
+    job: 'Search by job title...'
+  };
 
   let selectedType = 'employer'; // Default selection
 
@@ -80,7 +80,7 @@ const searchPlaceholders = {
     button.addEventListener('click', function () {
       // Remove the 'selected' class from all buttons
       buttons.forEach(btn => btn.classList.remove('selected'));
-      
+
       // Add 'selected' class to the clicked button
       this.classList.add('selected');
 
@@ -103,7 +103,6 @@ const searchPlaceholders = {
       } else if (selectedType === 'job') {
         window.location.href = `/search/job?q=${encodeURIComponent(query)}`;
       }
-    } else {
     }
   });
 </script>
