@@ -3,6 +3,7 @@
 import { Image } from "astro:assets";
 import PrimaryCTA from "@components/ui/buttons/PrimaryCTA.astro";
 import SecondaryCTA from "@components/ui/buttons/SecondaryCTA.astro";
+import TertiaryCTA from "@components/ui/buttons/TertiaryCTA.astro";
 import ReviewComponent from "@components/ui/blocks/ReviewComponent.astro";
 
 // Define props from Astro
@@ -73,7 +74,7 @@ interface Props {
       <SecondaryCTA title={secondaryBtn} url={secondaryBtnURL} />
       }
       {tertiaryBtn && 
-      <SecondaryCTA title={tertiaryBtn} url={tertiaryBtnURL} />
+      <TertiaryCTA title={tertiaryBtn} url={tertiaryBtnURL} />
       }
     </div>
 
@@ -87,15 +88,14 @@ interface Props {
   <div class="flex w-full">
       <div class="top-12 overflow-hidden">
 	{src && alt &&
-	<Image
-        src={src}
-        alt={alt}
-        class="h-full w-full scale-0.1 object-cover object-center"
-        style={{ marginTop: '60px' }} 
-        draggable={"false"}
-        loading={"eager"}
-        format={"avif"}
-	 />
+  <Image
+    src={src}
+    alt={alt}
+    class="h-full w-full scale-1 object-cover object-center custom-glow"
+    draggable={"false"}
+    loading={"eager"}
+    format={"avif"}
+  />
 	}
     </div>
   </div>

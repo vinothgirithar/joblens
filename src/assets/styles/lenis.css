@@ -18,3 +18,15 @@ html.lenis body {
 .lenis.lenis-scrolling iframe {
     pointer-events: none;
 }
+
+/* General Image Styling */
+.custom-glow {
+transition: box-shadow 0.3s ease; /* Smooth transition for the glow */
+}
+
+/* Glow effect in dark mode */
+@media (prefers-color-scheme: dark) {
+    .custom-glow {
+        box-shadow: 0 0 20px 5px rgba(255, 165, 0, 0.8); /* Orange glow in dark mode */
+    }
+}
