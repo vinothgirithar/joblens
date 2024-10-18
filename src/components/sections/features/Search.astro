@@ -1,0 +1,57 @@
+
+---
+import Search from "@components/ui/forms/input/SearchInput.astro";
+import PrimaryCTA from "@components/ui/buttons/ProductTabBtn.astro";
+
+
+const {
+  label = "Search",
+  title = Astro.currentLocale === "fr" ? "S'Login" : "Search",
+  id = "login-input",
+  placeholder = "Search for an employer",
+  primaryBtn1 = "Employer",
+  primaryBtn2 = "Salary",
+
+} = Astro.props;
+
+interface Props {
+  label?: string;
+  title?: string;
+  placeholder?: string;
+  primaryBtn?: string;
+  primaryBtn2?: string;
+  id?: string;
+}
+
+---
+
+<div 
+class="mt-4 flex flex-col items-center gap-2 rounded-lg bg-neutral-200 p-2 dark:bg-neutral-800 sm:flex-row sm:gap-3
+>
+  <div class="w-full">
+  <!-- Include the Search component inside the background box -->
+    {primaryBtn1 && 
+    <PrimaryCTA title={primaryBtn1} />
+    }
+    {primaryBtn2 && 
+    <PrimaryCTA title={primaryBtn2} />
+    }
+  </div>
+  <Search />
+</div>
+
+
+<style>
+  .box-background {
+    width: 100%;            /* Full width */
+    height: auto;           /* Automatically adjust height based on content */
+    background-color: #585858; /* Semi-transparent black background */
+    border-radius: 10px;    /* Rounded corners */
+    padding: 20px;          /* Padding inside the box */
+    display: flex - 1;          /* Flexbox for content alignment */
+    flex-direction: column; /* Stack the buttons and Search component vertically */
+    justify-content: center;/* Center content horizontally */
+    align-items: center;    /* Center content vertically */
+    margin-top: 2rem;       /* Custom margin, equivalent to mt-8 in Tailwind */
+  }
+</style>
