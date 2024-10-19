@@ -31,7 +31,7 @@ const searchPlaceholders = {
       id="search-bar"
       type="text"
       class="w-full px-4 pr-10 py-2 text-sm font-medium text-neutral-600 shadow-sm rounded-lg border border-neutral-200 focus:outline-none focus:ring-2 ring-zinc-500 transition duration-300"
-      placeholder='Search by company...' // Default placeholder
+      placeholder='Search by company...' 
     />
 
     <!-- Search Icon (now functional as a search button) -->
@@ -43,74 +43,58 @@ const searchPlaceholders = {
   </div>
 
   <!-- JavaScript to trigger search on icon click -->
-  <script>
-    document.getElementById('search-icon').addEventListener('click', function() {
-      const searchInput = document.getElementById('search-bar') as HTMLInputElement;
-      if (searchInput) {
-        const query = (searchInput as HTMLInputElement).value.trim();
-      }  
+<script type="module" is:inline>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Get buttons and the search bar
+    const buttons = document.querySelectorAll('.button');
+    const searchBar = document.getElementById('search-bar');
+    const searchIcon = document.getElementById('search-icon');
+
+    // Define placeholders
+    const placeholders = {
+      employer: 'Search by company...',
+      salary: 'Search by salary range...',
+      job: 'Search by job title...'
+    };
+
+    let selectedType = 'employer'; // Default selection
+
+    // Function to update the selected button and search placeholder
+    buttons.forEach(button => {
+      button.addEventListener('click', function () {
+        // Remove the 'selected' class from all buttons
+        buttons.forEach(btn => btn.classList.remove('selected'));
+
+        // Add 'selected' class to the clicked button
+        this.classList.add('selected');
+
+        // Update selected type and search bar placeholder
+        selectedType = this.getAttribute('data-type');
+        searchBar.placeholder = placeholders[selectedType];
+      });
     });
-  </script>
 
-</div>
+    // Function to handle the search button click
+    if (searchIcon) {
+      searchIcon.addEventListener('click', function () {
+        const query = searchBar.value.trim();
 
-<!-- Client-side script for handling the button clicks and changing placeholders -->
-<script type="module" client:load = {true}>
-  // Get buttons and the search bar
-  const buttons = document.querySelectorAll('.button');
-  const searchBar = document.getElementById('search-bar');
-  const searchIcon = document.getElementById('search-icon');
-  if (searchIcon) {
-    searchIcon.addEventListener('click', function () {
-      const searchInput = document.getElementById('search-bar');
-      if (searchInput) {
-        const query = searchInput.value.trim();
-        // logic
-      }
-    });
-  }
-  // Define placeholders
-  const placeholders = {
-    employer: 'Search by company...',
-    salary: 'Search by salary range...',
-    job: 'Search by job title...'
-  };
+        if (query) {
+          // Redirect based on the selected type
+          let searchUrl;
+          if (selectedType === 'employer') {
+            searchUrl = `/search/employer?q=${encodeURIComponent(query)}`;
+          } else if (selectedType === 'salary') {
+            searchUrl = `/search/salary?q=${encodeURIComponent(query)}`;
+          } else if (selectedType === 'job') {
+            searchUrl = `/search/job?q=${encodeURIComponent(query)}`;
+          }
 
-  let selectedType = 'employer'; // Default selection
-
-  // Function to update the selected button and search placeholder
-  buttons.forEach(button => {
-    button.addEventListener('click', function () {
-      // Remove the 'selected' class from all buttons
-      buttons.forEach(btn => btn.classList.remove('selected'));
-
-      // Add 'selected' class to the clicked button
-      this.classList.add('selected');
-
-      // Update selected type and search bar placeholder
-      selectedType = this.getAttribute('data-type');
-      searchBar.placeholder = placeholders[selectedType];
-    });
-  });
-
-  // Function to handle the search button click
-  searchIcon.addEventListener('click', function () {
-    const query = searchBar.value.trim();
-
-    if (query) {
-      // Redirect based on the selected type
-      let searchUrl;
-      if (selectedType === 'employer') {
-        searchUrl = `/search/employer?q=${encodeURIComponent(query)}`;
-      } else if (selectedType === 'salary') {
-        searchUrl = `/search/salary?q=${encodeURIComponent(query)}`;
-      } else if (selectedType === 'job') {
-        searchUrl = `/search/job?q=${encodeURIComponent(query)}`;
-      }
-
-      if (searchUrl) {
-        window.location.href = searchUrl;
-      }
+          if (searchUrl) {
+            window.location.href = searchUrl;
+          }
+        }
+      });
     }
   });
 </script>
